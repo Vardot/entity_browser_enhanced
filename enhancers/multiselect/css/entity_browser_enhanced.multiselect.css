@@ -1,0 +1,50 @@
+nav ul {
+  border-bottom-color: #d0d0d0;
+}
+
+nav ul li a {
+  border-radius: 1em 1em 0 0;
+}
+
+nav ul li.active {
+  border-bottom-width: 0;
+}
+
+nav.eb-tabs ul li.active a {
+  background-color: #d6d6d6;
+}
+
+.view .views-exposed-form {
+  padding: 1.5em;
+  background-color: #efefef;
+}
+
+.view .views-exposed-form .form--inline .form-item,
+.view .views-exposed-form .form--inline .form-actions {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+.view .view-content {
+  margin: 2em 0;
+}
+
+.view .views-col {
+  height: 100%;
+}
+
+.view .views-col.selected img {
+  box-shadow: 0 0 20px lime;
+}
+
+.view .views-col .views-field {
+  max-height: 240px;
+  padding: 2px;
+}
+
+.view .views-col img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
