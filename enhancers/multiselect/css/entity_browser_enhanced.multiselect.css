@@ -48,3 +48,12 @@ nav.eb-tabs ul li.active a {
   object-fit: cover;
   width: 100%;
 }
+
+.view .views-col .js-form-item {
+  position: absolute !important;
+  clip: rect(1px,1px,1px,1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  word-wrap: normal;
+}

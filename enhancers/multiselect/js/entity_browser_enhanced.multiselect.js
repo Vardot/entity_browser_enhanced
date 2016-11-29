@@ -12,9 +12,6 @@
       // Disable the submit for this entity browser until we select an entity.
       $('input.is-entity-browser-submit').attr('disabled', 'disabled');
 
-      // All selectable elements which should receive the click behavior.
-      var $selectables = $('[data-selectable]', context);
-
       // Selector for finding the actual form inputs.
       var input = 'input[name ^= "entity_browser_select"]';
 
@@ -22,7 +19,7 @@
       var selectedEntities = 0;
 
       // When we click on a selectable entity.
-      $selectables.on('click', function () {
+      $('.view .views-col').on('click', function () {
 
         // If the cardinality for the validation is more than 1.
         if (drupalSettings.entity_browser_enhanced.multiselect.cardinality > 1) {
@@ -51,7 +48,7 @@
           // Select the current clicked entity.
           $(this).addClass('selected').find(input).prop('checked', true);
           // Unselect everything else.
-          $selectables.not(this).removeClass('selected').find(input).prop('checked', false);
+          $('.view .views-col').not(this).removeClass('selected').find(input).prop('checked', false);
 
           // Set selected entities counter to one.
           selectedEntities = 1;
@@ -69,12 +66,12 @@
       });
 
       // When we double click on a selectable entity.
-      $selectables.on('dblclick', function () {
+      $('.view .views-col').on('dblclick', function () {
 
         // Select the current clicked entity.
         $(this).addClass('selected').find(input).prop('checked', true);
         // Unselect everything else.
-        $selectables.not(this).removeClass('selected').find(input).prop('checked', false);
+        $('.view .views-col', context).not(this).removeClass('selected').find(input).prop('checked', false);
 
         // Enable the submit button for this entity browser.
         $('input.is-entity-browser-submit').removeAttr('disabled');
