@@ -72,7 +72,7 @@ function entity_browser_enhanced_submit(&$form, FormStateInterface $form_state) 
   foreach ($entity_browser->getWidgets() as $uuid => $widget) {
     $widget_class_name = get_class($widget);
 
-    if (substr($widget_class_name, -4, 4) === "View" && $form['widgets']['table'][$uuid]['form']['enhancer']['#value'] !== '_none_') {
+    if (substr($widget_class_name, -4, 4) === "View" && isset($form['widgets']['table'][$uuid]['form']['enhancer']['#value'])) {
       \Drupal::service('config.factory')->getEditable('entity_browser_enhanced.widgets')
         ->set($uuid, $form['widgets']['table'][$uuid]['form']['enhancer']['#value'])
         ->save();
