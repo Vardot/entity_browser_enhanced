@@ -56,6 +56,10 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
             $field_cardinality = $field_storage['entity_browser']['validators']['cardinality']['cardinality'];
 
             $form['#attached']['drupalSettings']['entity_browser_enhanced']['multiselect']['cardinality'] = $field_cardinality;
+
+            // Mark the form with entity-browser-enhanced multiselect classes.  
+            $form['#attributes']['class'][] = 'entity-browser-enhanced';
+            $form['#attributes']['class'][] = 'multiselect';
           }
         }
       }

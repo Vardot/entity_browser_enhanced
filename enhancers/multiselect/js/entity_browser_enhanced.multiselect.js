@@ -10,7 +10,9 @@
     attach: function (context) {
 
       // Disable the submit for this entity browser until we select an entity.
-      $('input.is-entity-browser-submit').attr('disabled', 'disabled');
+      if ($('form.entity-browser-enhanced.multiselect .view .view-content .views-view-grid').length > 0) {
+        $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').attr('disabled', 'disabled');
+      }
 
       // Selector for finding the actual form inputs.
       var input = 'input[name ^= "entity_browser_select"]';
@@ -19,7 +21,7 @@
       var selectedEntities = 0;
 
       // When we click on a selectable entity.
-      $('.view .views-col').on('click', function () {
+      $('form.entity-browser-enhanced.multiselect .view .views-col').on('click', function () {
 
         // If the cardinality for the validation is more than 1.
         if (drupalSettings.entity_browser_enhanced.multiselect.cardinality > 1) {
@@ -48,7 +50,7 @@
           // Select the current clicked entity.
           $(this).addClass('selected').find(input).prop('checked', true);
           // Unselect everything else.
-          $('.view .views-col').not(this).removeClass('selected').find(input).prop('checked', false);
+          $('form.entity-browser-enhanced.multiselect .view .views-col').not(this).removeClass('selected').find(input).prop('checked', false);
 
           // Set selected entities counter to one.
           selectedEntities = 1;
@@ -56,28 +58,28 @@
 
         if (selectedEntities >= 1) {
           // Enable the submit button for this entity browser.
-          $('input.is-entity-browser-submit').removeAttr('disabled');
+          $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').removeAttr('disabled');
         }
         else {
           // Disable the submit button for this entity browser.
-          $('input.is-entity-browser-submit').attr('disabled', 'disabled');
+          $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').attr('disabled', 'disabled');
         }
 
       });
 
       // When we double click on a selectable entity.
-      $('.view .views-col').on('dblclick', function () {
+      $('form.entity-browser-enhanced.multiselect .view .views-col').on('dblclick', function () {
 
         // Select the current clicked entity.
         $(this).addClass('selected').find(input).prop('checked', true);
         // Unselect everything else.
-        $('.view .views-col', context).not(this).removeClass('selected').find(input).prop('checked', false);
+        $('form.entity-browser-enhanced.multiselect .view .views-col', context).not(this).removeClass('selected').find(input).prop('checked', false);
 
         // Enable the submit button for this entity browser.
-        $('input.is-entity-browser-submit').removeAttr('disabled');
+        $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').removeAttr('disabled');
 
         // Auto submit the entity browser form .
-        $('input.is-entity-browser-submit').click();
+        $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').click();
       });
     }
   };
@@ -97,4 +99,4 @@
     }
   };
 
-})(jQuery, _, Drupal, drupalSettings);
+})(window.jQuery, window._, window.Drupal, window.drupalSettings);
