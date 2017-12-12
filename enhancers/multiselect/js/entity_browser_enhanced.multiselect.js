@@ -21,7 +21,7 @@
       var selectedEntities = 0;
 
       // When we click on a selectable entity.
-      $('form.entity-browser-enhanced.multiselect .view .views-col').on('click', function () {
+      $('form.entity-browser-enhanced.multiselect .view .views-col', context).on('click', function () {
 
         // If the cardinality for the validation is more than 1.
         if (drupalSettings.entity_browser_enhanced.multiselect.cardinality > 1) {
