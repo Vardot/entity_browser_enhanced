@@ -39,29 +39,27 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
           && $form_id !== 'entity_browser_display_config_form'
           && $form_id !== 'entity_browser_widget_selector_config_form'
           && $form_id !== 'entity_browser_selection_display_config_form') {
-    if (isset($form['widget_selector'])) {
-      foreach ($form['widget_selector'] as $tab_selector) {
 
-        if (isset($tab_selector['#widget_id'])) {
-          // Get the enhancer id for the selected widget id from the config of
-          // widgets if they do have a selected enhancer.
-          $enhancer_id = \Drupal::config('entity_browser_enhanced.widgets')->get($tab_selector['#widget_id'], '_none_');
+    // get the entity browser machine name from the form_id and retrieve its widgets
+    preg_match('#(?<=^entity_browser_).+(?=_form$)#', $form_id, $browser_name);
+    $widgets = \Drupal::config('entity_browser.browser.' . $browser_name[0])->get('widgets');
 
-          // Multiselect enhancer.
-          if ($enhancer_id === 'multiselect') {
-            // Now we attach Entity Browser Enhanced multiselect library.
-            $form['#attached']['library'][] = 'entity_browser_enhanced/entity_browser_enhanced.multiselect';
+    foreach($widgets as $uuid => $widget) {
+      $enhancer_id = \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_');
 
-            $field_storage = $form_state->getStorage();
-            $field_cardinality = $field_storage['entity_browser']['validators']['cardinality']['cardinality'];
+      // Multiselect enhancer.
+      if ($enhancer_id === 'multiselect') {
+        // Now we attach Entity Browser Enhanced multiselect library.
+        $form['#attached']['library'][] = 'entity_browser_enhanced/entity_browser_enhanced.multiselect';
 
-            $form['#attached']['drupalSettings']['entity_browser_enhanced']['multiselect']['cardinality'] = $field_cardinality;
+        $field_storage = $form_state->getStorage();
+        $field_cardinality = $field_storage['entity_browser']['validators']['cardinality']['cardinality'];
 
-            // Mark the form with entity-browser-enhanced multiselect classes.  
-            $form['#attributes']['class'][] = 'entity-browser-enhanced';
-            $form['#attributes']['class'][] = 'multiselect';
-          }
-        }
+        $form['#attached']['drupalSettings']['entity_browser_enhanced']['multiselect']['cardinality'] = $field_cardinality;
+
+        // Mark the form with entity-browser-enhanced multiselect classes.
+        $form['#attributes']['class'][] = 'entity-browser-enhanced';
+        $form['#attributes']['class'][] = 'multiselect';
       }
     }
   }
