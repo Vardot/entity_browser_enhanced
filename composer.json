@@ -2,16 +2,12 @@
   "name": "drupal/entity_browser_enhanced",
   "description": "Provides some behavior and style enhancements to Entity Browsers, specifically for multiselect and image/media browsers.",
   "type": "drupal-module",
-  "homepage": "https://www.drupal.org/project/entity_browser_enhanced",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
   "authors": [
     {
-      "name": "Mohammed Razem",
-      "homepage": "https://www.drupal.org/u/mohammed-j-razem",
-      "role": "Maintainer"
-    },
-    {
-      "name": "Rajab Natshah",
-      "homepage": "https://www.drupal.org/u/rajabnatshah",
+      "name": "Vardot",
+      "homepage": "https://www.drupal.org/vardot",
       "role": "Maintainer"
     }
   ],
@@ -19,7 +15,16 @@
     "issues": "https://www.drupal.org/project/issues/entity_browser_enhanced",
     "source": "http://cgit.drupalcode.org/entity_browser_enhanced"
   },
-  "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "require": { }
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": { },
+  "extra": {
+    "branch-alias": {
+      "dev-8.x-1.x": "8.1.x-dev"
+    }
+  }
 }
