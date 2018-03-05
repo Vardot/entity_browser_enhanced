@@ -20,9 +20,11 @@
       // Reset the selected entities counter to 0.
       var selectedEntities = 0;
 
-      // When we click on a selectable entity.
-      $('form.entity-browser-enhanced.multiselect .view .views-col', context).on('click', function () {
+      var $columns =  $('form.entity-browser-enhanced.multiselect .view .views-col').filter(':not(.entity-browser-enhanced-processed)');
+      $columns.addClass('entity-browser-enhanced-processed');
 
+      // When we click on a selectable entity.
+      $columns.on('click', function () {
         // If the cardinality for the validation is more than 1.
         if (drupalSettings.entity_browser_enhanced.multiselect.cardinality > 1) {
           if ($(this).hasClass("selected")) {
@@ -68,8 +70,7 @@
       });
 
       // When we double click on a selectable entity.
-      $('form.entity-browser-enhanced.multiselect .view .views-col').on('dblclick', function () {
-
+      $columns.on('dblclick', function () {
         // Select the current clicked entity.
         $(this).addClass('selected').find(input).prop('checked', true);
         // Unselect everything else.
