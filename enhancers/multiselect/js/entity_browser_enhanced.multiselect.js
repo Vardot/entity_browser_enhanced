@@ -60,11 +60,11 @@
 
         if (selectedEntities >= 1) {
           // Enable the submit button for this entity browser.
-          $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').removeAttr('disabled');
+          $('form.entity-browser-enhanced.multiselect .is-entity-browser-submit').removeAttr('disabled');
         }
         else {
           // Disable the submit button for this entity browser.
-          $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').attr('disabled', 'disabled');
+          $('form.entity-browser-enhanced.multiselect .is-entity-browser-submit').attr('disabled', 'disabled');
         }
 
       });
@@ -77,10 +77,10 @@
         $('form.entity-browser-enhanced.multiselect .view .views-col', context).not(this).removeClass('selected').find(input).prop('checked', false);
 
         // Enable the submit button for this entity browser.
-        $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').removeAttr('disabled');
+        $('form.entity-browser-enhanced.multiselect .is-entity-browser-submit').removeAttr('disabled');
 
         // Auto submit the entity browser form .
-        $('form.entity-browser-enhanced.multiselect input.is-entity-browser-submit').click();
+        $('form.entity-browser-enhanced.multiselect .is-entity-browser-submit').click();
       });
     }
   };
