@@ -60,6 +60,7 @@ nav.eb-tabs ul li.active a {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   display: block;
+  z-index: 10;
 }
 
 .view .views-col .field--name-name {
