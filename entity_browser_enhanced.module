@@ -6,45 +6,41 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\entity_browser\Plugin\EntityBrowser\Widget\View;
+use Drupal\entity_browser\Form\EntityBrowserForm;
 
 /**
  * Implements hook_form_alter().
  */
 function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id === "entity_browser_widgets_config_form") {
-    $enhancers = array(
+    $enhancers = [
       '_none_' => t('- None -'),
       'multiselect' => t('Enhanced Multiselect'),
-    );
+    ];
 
-    $entity_browser = $form_state->getTemporaryValue('wizard')['entity_browser'];
+    $entity_browser = $form_state->getFormObject()->getEntity();
 
     foreach ($entity_browser->getWidgets() as $uuid => $widget) {
-      $widget_class_name = get_class($widget);
 
-      if (substr($widget_class_name, -4, 4) === "View") {
-        $form['widgets']['table'][$uuid]['form']['enhancer'] = array(
-          '#type' => 'select',
-          '#title' => t('Select enhancer'),
-          '#default_value' => \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_'),
-          '#options' => $enhancers,
-        );
-
-        $form['actions']['submit']['#submit'][] = 'entity_browser_enhanced_submit';
+      if (!$widget instanceof View) {
+        continue;
       }
+
+      $form['widgets']['table'][$uuid]['form']['enhancer'] = [
+        '#type' => 'select',
+        '#title' => t('Select enhancer'),
+        '#default_value' => \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_'),
+        '#options' => $enhancers,
+      ];
     }
+
+    $form['#submit'][] = 'entity_browser_enhanced_submit';
   }
-  elseif (substr($form_id, 0, 15) === "entity_browser_"
-          && $form_id !== 'entity_browser_general_info_config_form'
-          && $form_id !== 'entity_browser_display_config_form'
-          && $form_id !== 'entity_browser_widget_selector_config_form'
-          && $form_id !== 'entity_browser_selection_display_config_form') {
+  elseif ($form_state->getFormObject() instanceof EntityBrowserForm) {
+    $entity_browser = $form_state->getFormObject()->getEntityBrowser();
 
-    // get the entity browser machine name from the form_id and retrieve its widgets
-    preg_match('#(?<=^entity_browser_).+(?=_form$)#', $form_id, $browser_name);
-    $widgets = \Drupal::config('entity_browser.browser.' . $browser_name[0])->get('widgets');
-
-    foreach($widgets as $uuid => $widget) {
+    foreach ($entity_browser->getWidgets() as $uuid => $widget) {
       $enhancer_id = \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_');
 
       // Multiselect enhancer.
@@ -53,9 +49,10 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
         $form['#attached']['library'][] = 'entity_browser_enhanced/entity_browser_enhanced.multiselect';
 
         $field_storage = $form_state->getStorage();
-        $field_cardinality = $field_storage['entity_browser']['validators']['cardinality']['cardinality'];
-
-        $form['#attached']['drupalSettings']['entity_browser_enhanced']['multiselect']['cardinality'] = $field_cardinality;
+        if (!empty($field_storage['entity_browser']['validators']['cardinality']['cardinality'])) {
+          $field_cardinality = $field_storage['entity_browser']['validators']['cardinality']['cardinality'];
+          $form['#attached']['drupalSettings']['entity_browser_enhanced']['multiselect']['cardinality'] = $field_cardinality;
+        }
 
         // Mark the form with entity-browser-enhanced multiselect classes.
         $form['#attributes']['class'][] = 'entity-browser-enhanced';
@@ -69,14 +66,19 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
  * Entity browser enhanced submit.
  */
 function entity_browser_enhanced_submit(&$form, FormStateInterface $form_state) {
-  $entity_browser = $form_state->getTemporaryValue('wizard')['entity_browser'];
+  $entity_browser = $form_state->getFormObject()->getEntity();
 
   foreach ($entity_browser->getWidgets() as $uuid => $widget) {
-    $widget_class_name = get_class($widget);
 
-    if (substr($widget_class_name, -4, 4) === "View" && isset($form['widgets']['table'][$uuid]['form']['enhancer']['#value'])) {
+    if (!$widget instanceof View) {
+      continue;
+    }
+
+    $widget_values = $form_state->getValues()['table'][$widget->uuid()]['form'];
+
+    if (!empty($widget_values['enhancer'])) {
       \Drupal::service('config.factory')->getEditable('entity_browser_enhanced.widgets')
-        ->set($uuid, $form['widgets']['table'][$uuid]['form']['enhancer']['#value'])
+        ->set($uuid, $widget_values['enhancer'])
         ->save();
     }
   }
