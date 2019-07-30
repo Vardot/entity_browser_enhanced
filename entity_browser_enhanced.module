@@ -30,7 +30,7 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
       $form['widgets']['table'][$uuid]['form']['enhancer'] = [
         '#type' => 'select',
         '#title' => t('Select enhancer'),
-        '#default_value' => \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_'),
+        '#default_value' => \Drupal::config('entity_browser_enhanced.widgets.' . $entity_browser->getName())->get($uuid, '_none_'),
         '#options' => $enhancers,
       ];
     }
@@ -41,7 +41,7 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
     $entity_browser = $form_state->getFormObject()->getEntityBrowser();
 
     foreach ($entity_browser->getWidgets() as $uuid => $widget) {
-      $enhancer_id = \Drupal::config('entity_browser_enhanced.widgets')->get($uuid, '_none_');
+      $enhancer_id = \Drupal::config('entity_browser_enhanced.widgets.' . $entity_browser->getName())->get($uuid, '_none_');
 
       // Multiselect enhancer.
       if ($enhancer_id === 'multiselect') {
@@ -77,7 +77,7 @@ function entity_browser_enhanced_submit(&$form, FormStateInterface $form_state) 
     $widget_values = $form_state->getValues()['table'][$widget->uuid()]['form'];
 
     if (!empty($widget_values['enhancer'])) {
-      \Drupal::service('config.factory')->getEditable('entity_browser_enhanced.widgets')
+      \Drupal::service('config.factory')->getEditable('entity_browser_enhanced.widgets.' . $entity_browser->getName())
         ->set($uuid, $widget_values['enhancer'])
         ->save();
     }
