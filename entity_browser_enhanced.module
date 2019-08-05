@@ -6,8 +6,34 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\entity_browser\Plugin\EntityBrowser\Widget\View;
 use Drupal\entity_browser\Form\EntityBrowserForm;
+
+/**
+ * Implements hook_help().
+ */
+function entity_browser_enhanced_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.entity_browser_enhanced') {
+    $readme_file = file_exists(__DIR__ . '/README.md') ? __DIR__ . '/README.md' : __DIR__ . '/README.txt';
+    if (!file_exists($readme_file)) {
+      return NULL;
+    }
+    $text = file_get_contents($readme_file);
+    if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+      return '<pre>' . $text . '</pre>';
+    }
+    else {
+      // Use the Markdown filter to render the README.
+      $filter_manager = \Drupal::service('plugin.manager.filter');
+      $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+      $config = ['settings' => $settings];
+      $filter = $filter_manager->createInstance('markdown', $config);
+      return $filter->process($text, 'en');
+    }
+  }
+  return NULL;
+}
 
 /**
  * Implements hook_form_alter().
