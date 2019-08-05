@@ -20,7 +20,7 @@
       // Reset the selected entities counter to 0.
       var selectedEntities = 0;
 
-      var $columns =  $('form.entity-browser-enhanced.multiselect .view .views-col').filter(':not(.entity-browser-enhanced-processed)');
+      var $columns = $('form.entity-browser-enhanced.multiselect .view .views-col').filter(':not(.entity-browser-enhanced-processed)');
       $columns.addClass('entity-browser-enhanced-processed');
 
       // When we click on a selectable entity.

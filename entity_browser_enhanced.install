@@ -6,14 +6,16 @@
  */
 
 /**
- * Issue #2998934: Split up config with schema refactor to have Enhancer
- *  for each given entity browser widget.
+ * Issue #2998934: Split up config with schema refactor to have Enhancer.
+ *
+ * A Enhancer for each given entity browser widget.
  */
 function entity_browser_enhanced_update_8101() {
   /** @var \Drupal\Core\Config\Config $old_config */
   $old_config = Drupal::configFactory()->getEditable('entity_browser_enhanced.widgets');
 
-  // Old config stores all widget uuids in 1 config. Need to group them by entity_browser.
+  // Old config stores all widget uuids in 1 config.
+  // Need to group them by entity_browser.
   $enhancers = [];
   foreach (Drupal::entityTypeManager()->getStorage('entity_browser')->loadMultiple() as $entity_browser) {
     /** @var \Drupal\entity_browser\Entity\EntityBrowser $entity_browser */
