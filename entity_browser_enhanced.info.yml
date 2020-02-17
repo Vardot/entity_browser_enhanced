@@ -4,5 +4,6 @@ type: module
 package: Media
 project: entity_browser_enhanced
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - entity_browser:entity_browser

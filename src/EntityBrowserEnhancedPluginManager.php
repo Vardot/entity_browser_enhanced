@@ -12,7 +12,7 @@ use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 /**
  * Provides the default entity_browser_enhanced_plugin manager.
  */
-class EntityBrowserEnhancedPluginManager extends DefaultPluginManager implements EntityBrowserEnhancedPluginManagerInterface {
+class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
 
   /**
    * Provides default values for all entity_browser_enhanced_plugin plugins.
@@ -29,13 +29,15 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager implements
   /**
    * Constructs a new EntityBrowserEnhancedPluginManager object.
    *
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
+   * @param \Traversable $namespaces
+   *   An object that implements \Traversable which contains the root paths
+   *   keyed by the corresponding namespace to look for plugin implementations.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
    *   Cache backend instance to use.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
-    // Add more services as required.
+  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     $this->moduleHandler = $module_handler;
     $this->setCacheBackend($cache_backend, 'entity_browser_enhanced_plugin', ['entity_browser_enhanced_plugin']);
   }

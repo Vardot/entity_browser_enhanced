@@ -1,4 +1,5 @@
 services:
   plugin.manager.entity_browser_enhanced_plugin:
     class: Drupal\entity_browser_enhanced\EntityBrowserEnhancedPluginManager
-    arguments: ['@module_handler', '@cache.discovery']
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler']
+    parent: default_plugin_manager
