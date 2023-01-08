@@ -83,7 +83,7 @@ function entity_browser_enhanced_form_alter(&$form, FormStateInterface $form_sta
       foreach ($enhancers_list as $enhancer_item) {
         if ($enhancer_id === $enhancer_item['id']) {
           // Attach Entity Browser Enhanced library.
-          $form['#attached']['library'][] = $enhancer_item['libraray'];
+          $form['#attached']['library'][] = $enhancer_item['library'];
 
           $field_storage = $form_state->getStorage();
           if (!empty($field_storage['entity_browser']['validators']['cardinality']['cardinality'])) {

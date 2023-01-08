@@ -23,7 +23,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
     'id' => '',
     'label' => '',
     'form_extra_class' => '',
-    'libraray' => '',
+    'library' => '',
   ];
 
   /**
@@ -72,8 +72,8 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
       throw new PluginException(sprintf('Enhancer form extra CSS class selector property (%s) definition "is" is required.', $plugin_id));
     }
 
-    if (empty($definition['libraray'])) {
-      throw new PluginException(sprintf('Enhancer libraray (in a module or theme) property (%s) definition "is" is required.', $plugin_id));
+    if (empty($definition['library'])) {
+      throw new PluginException(sprintf('Enhancer library (in a module or theme) property (%s) definition "is" is required.', $plugin_id));
     }
 
   }
@@ -114,8 +114,8 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
    * @return string
    *   The styling library from modules or themes.
    */
-  public function getLibraray() {
-    return $this->pluginDefinition['libraray'];
+  public function getLibrary() {
+    return $this->pluginDefinition['library'];
   }
 
 }
