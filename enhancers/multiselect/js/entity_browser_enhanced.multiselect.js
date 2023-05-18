@@ -3,7 +3,7 @@
  * Behaviors for the Entity Browser Multiselect.
  */
 
-(function ($, _, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings) {
   'use strict';
 
   Drupal.behaviors.entityBrowserMultiselect = {
@@ -87,7 +87,7 @@
 
   // Entity Browser Multiselect keyboard behaviors.
   Drupal.behaviors.EntityBrowserMultiselectChangeOnKeyUp = {
-    onKeyUp: _.debounce(function () {
+    onKeyUp: Drupal.debounce(function () {
       $(this).trigger('change');
     }, 600),
 
@@ -100,4 +100,4 @@
     }
   };
 
-})(window.jQuery, window._, window.Drupal, window.drupalSettings);
+})(window.jQuery, window.Drupal, window.drupalSettings);
