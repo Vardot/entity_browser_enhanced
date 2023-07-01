@@ -3,29 +3,30 @@
  * Behaviors for the Entity Browser Autoselect.
  */
 
-(function ($, Drupal, drupalSettings) {
-  'use strict';
-
+(function ($, Drupal, drupalSettings, once) {
   Drupal.behaviors.entityBrowserAutoselect = {
-    attach: function (context, settings) {
-
-      $('.views-field-entity-browser-select', context).each(function () {
-        var $browser_select = $(this);
-
+    attach(context) {
+      $(
+        once(
+          '.views-field-entity-browser-select',
+          'register-row-click',
+          context,
+        ),
+      ).each(function () {
+        const $browserSelect = $(this);
         if (drupalSettings.entity_browser_widget.auto_select) {
-          $browser_select.once('register-row-click').click(function (event) {
+          $browserSelect.click(function (event) {
             event.preventDefault();
 
-              var $input = $browser_select.find('input.form-checkbox');
+            const $input = $browserSelect.find('input.form-checkbox');
 
-              $browser_select.parents('form')
-                .find('.entities-list')
-                .trigger('add-entities', [[$input.val()]]);
+            $browserSelect
+              .parents('form')
+              .find('.entities-list')
+              .trigger('add-entities', [[$input.val()]]);
           });
         }
       });
-
-    }
+    },
   };
-
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, drupalSettings, once);

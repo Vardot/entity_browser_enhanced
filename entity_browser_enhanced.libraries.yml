@@ -7,7 +7,7 @@ entity_browser_enhanced.multiselect:
   dependencies:
     - core/drupal
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupalSettings
     - core/underscore
     - core/drupal.debounce
@@ -21,6 +21,6 @@ entity_browser_enhanced.autoselect:
   dependencies:
     - core/drupal
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupalSettings
     - core/underscore
