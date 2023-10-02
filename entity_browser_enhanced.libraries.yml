@@ -9,7 +9,6 @@ entity_browser_enhanced.multiselect:
     - core/jquery
     - core/once
     - core/drupalSettings
-    - core/underscore
     - core/drupal.debounce
 
 entity_browser_enhanced.autoselect:
@@ -23,4 +22,3 @@ entity_browser_enhanced.autoselect:
     - core/jquery
     - core/once
     - core/drupalSettings
-    - core/underscore
