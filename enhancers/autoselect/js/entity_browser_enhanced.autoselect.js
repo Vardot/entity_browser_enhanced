@@ -23,7 +23,7 @@
             $browserSelect
               .parents('form')
               .find('.entities-list')
-              .trigger('add-entities', [[$input.val()]]);
+              .trigger('add-entities', [[$input.prop('value')]]);
           });
         }
       });

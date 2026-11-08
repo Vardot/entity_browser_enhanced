@@ -1,6 +1,6 @@
 # Entity Browser Enhanced
 
-This module provides behaviour and style enhancements to Entity Browsers.
+This module provides behavior and style enhancements to Entity Browsers.
 Targeted to multiselect and image/media browsers.
 
 Influenced by enhancements made on the Media Entity Browser in Lightning.
@@ -19,11 +19,11 @@ Which does the following:
 
 - Hides the checkboxes, allows you to select anywhere on the entity to select 
   it as an item.
-- Adds some styling enahncements on selected entities.
+- Adds some styling enhancements on selected entities.
 - If an Entity Browser is used as a field widget, the Entity Browser's View
   widget would limit the number of selectable entities based on the field's
   cardinality config.
-- Doubleclicking the entity means add or place.
+- Double-clicking the entity means add or place.
 
 ### Roadmap:
 

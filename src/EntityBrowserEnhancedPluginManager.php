@@ -65,7 +65,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
     }
 
     if (empty($definition['label'])) {
-      throw new PluginException(sprintf('Enhancer Lable property (%s) definition "is" is required.', $plugin_id));
+      throw new PluginException(sprintf('Enhancer Label property (%s) definition "is" is required.', $plugin_id));
     }
 
     if (empty($definition['form_extra_class'])) {
@@ -85,6 +85,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
    *   The ID of the Enhancer.
    */
   public function getId() {
+    // @phpstan-ignore property.notFound (unused; a manager has no single definition)
     return $this->pluginDefinition['id'];
   }
 
@@ -95,6 +96,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
    *   The Label of the Enhancer.
    */
   public function getLabel() {
+    // @phpstan-ignore property.notFound (unused; a manager has no single definition)
     return $this->pluginDefinition['label'];
   }
 
@@ -105,6 +107,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
    *   The selected form extra CSS class for the enhancer.
    */
   public function getFormExtraClass() {
+    // @phpstan-ignore property.notFound (unused; a manager has no single definition)
     return $this->pluginDefinition['form_extra_class'];
   }
 
@@ -115,6 +118,7 @@ class EntityBrowserEnhancedPluginManager extends DefaultPluginManager {
    *   The styling library from modules or themes.
    */
   public function getLibrary() {
+    // @phpstan-ignore property.notFound (unused; a manager has no single definition)
     return $this->pluginDefinition['library'];
   }
 
